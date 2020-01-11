@@ -42,11 +42,13 @@ const form = document.forms['newsControls'];
 const countrySelect = form.elements['country'];
 const searchInput = form.elements['search'];
 
+// add event to form submitting
 form.addEventListener('submit', e => {
   e.preventDefault();
   loadNews();
 })
 
+// load news in dependence on chosen endpoints
 function loadNews() {
   showPreloader();
   const country = countrySelect.value;
@@ -60,6 +62,7 @@ function loadNews() {
   
 }
 
+// draw fiels with news
 function renderNews(news) {
   const newsContainer = document.querySelector('.news-container .row');
   if(newsContainer.children.length) {
@@ -74,6 +77,7 @@ function renderNews(news) {
   
 }
 
+// clear field after new request
 function clearContainer(container) {
   let child = container.lastElementChild;
   while(child) {
@@ -82,6 +86,7 @@ function clearContainer(container) {
   }
 }
 
+// draw a card with one news
 function newsTemplate({ urlToImage, title, url, description }) {
   return `
     <div class="col s12">
@@ -101,10 +106,12 @@ function newsTemplate({ urlToImage, title, url, description }) {
   `;
 }
 
+// show error message in failed case
 function showAlert(msg, type = 'success') {
   M.toast({ html: msg, classes: type });
 }
 
+// show preloader while news is loading
 function showPreloader() {
   document.body.insertAdjacentHTML(
     'afterbegin', 
@@ -115,6 +122,7 @@ function showPreloader() {
     `);
 }
 
+// stop showing preloader when news has been loaded
 function removePreloader() {
   const loader = document.querySelector('.progress');
   if(loader) {
